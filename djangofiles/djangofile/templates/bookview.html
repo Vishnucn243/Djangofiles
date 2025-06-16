@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book Shelf{% endblock %}
+{% block content %}
+<h1 class="gallery-title">Book Gallery</h1>
+
+{% if photos %}
+<div class="row">
+    {% for photo in photos %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ photo.name }}</h5>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-gallery">
+    <h2>No books uploaded yet</h2>
+    <p>Start to uplod</p>
+    <a href="{% url 'bookupload' %}" class="btn btn-primary">
+        Upload First Book
+    </a>
+</div>
+{% endif %}
+{% endblock %}
