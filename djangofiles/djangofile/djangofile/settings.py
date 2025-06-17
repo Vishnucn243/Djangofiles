@@ -131,3 +131,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    "log-to-file-every-5-minutes": {
+        "task": "app1.tasks.log_to_file",
+        "schedule": crontab(minute='*/5')
+    }
+}
